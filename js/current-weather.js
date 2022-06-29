@@ -1,7 +1,10 @@
 import weather from '../data/current-weather.js';
 import { formatDate, formatTemp } from './utils/format-data.js';
-import {weatherConditionsCodes} from './constants.js';
-console.log(weatherConditionsCodes);
+import { weatherConditionsCodes } from './constants.js';
+import { getLatLon } from './geolocation.js';
+import { getCurrentWeather } from './services/weather.js';
+
+
 function setCurrentCity($el,city){
     $el.textContent = city;
 }
@@ -36,7 +39,17 @@ function setBackground($el,conditionCode,solarStatus){
     $el.style.backgroundImage = `url(./images/${solarStatus}-${weatherType}${size}.jpg)`;
 }
 
+function showCurrentWeather($app,$loader){
+    $app.hidden = false
+    $loader.hidden = true
+}
+
 function configCurrentWeather(weather){
+
+    const $app = document.querySelector('#app');
+    const $loading = document.querySelector('#loading');
+
+    showCurrentWeather($app,$loading);
     
     const $currentWeatherDate = document.querySelector('#current-weather-date');
     setCurrentDate($currentWeatherDate);
@@ -53,14 +66,41 @@ function configCurrentWeather(weather){
 
     const sunriseTime = new Date(weather.sys.sunrise * 1000);
     const sunsetTime = new Date(weather.sys.sunset * 1000);
-    const $app = document.querySelector('#app');
     const conditionCode = String(weather.weather[0].id).charAt(0);
 
     setBackground($app, conditionCode, solarStatus(sunsetTime,sunriseTime));
 
 }
 
-export default function currentWeather(){
+export default async function currentWeather(){
+    
+    console.log('ANTES de getCurrentPosition')
+        
+    // try {
+    //     const {lat, lon} = await getLatLon();
+    //     console.log(lat,lon);
+    // } catch (error) {
+    //     alert(error)
+    // }
+
+    const {lat,lon,isError} = await getLatLon();
+
+    if(isError) return console.log('no obtuvimos tu ubicación')
+    console.log(lat,lon)
+    
+    // getCurrentPosition()
+    // .then((data) => {
+    //     console.log('YEEAA', data);
+    // })
+    // .catch(error => {
+    //     console.log(error);
+    // })
+
+    console.log('DESPUES de getCurrentPosition')
+    const {isError: currentWeatherError, data: weather} = await getCurrentWeather(lat,lon);
+
+    if(currentWeatherError) return console.log('A ocurrido un error al traer los datos del clima');
+
     configCurrentWeather(weather);
     // console.log(weather);
 }
