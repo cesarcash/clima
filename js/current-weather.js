@@ -74,7 +74,7 @@ function configCurrentWeather(weather){
 
 export default async function currentWeather(){
     
-    console.log('ANTES de getCurrentPosition')
+    // console.log('ANTES de getCurrentPosition')
         
     // try {
     //     const {lat, lon} = await getLatLon();
@@ -86,7 +86,7 @@ export default async function currentWeather(){
     const {lat,lon,isError} = await getLatLon();
 
     if(isError) return console.log('no obtuvimos tu ubicación')
-    console.log(lat,lon)
+    // console.log(lat,lon)
     
     // getCurrentPosition()
     // .then((data) => {
@@ -96,7 +96,7 @@ export default async function currentWeather(){
     //     console.log(error);
     // })
 
-    console.log('DESPUES de getCurrentPosition')
+    // console.log('DESPUES de getCurrentPosition')
     const {isError: currentWeatherError, data: weather} = await getCurrentWeather(lat,lon);
 
     if(currentWeatherError) return console.log('A ocurrido un error al traer los datos del clima');
