@@ -13,6 +13,14 @@ export function formatTemp(value){
     return `${Math.floor(value)}°`;
 }
 
+export function formatWind(value){
+    return `${value} Km-h`
+}
+
+export function formatHumidity(value){
+    return `${value}%`
+}
+
 export function formatWeekList(rawData) {
     
     let dayList = []
