@@ -50,5 +50,10 @@
   gap: 1rem;
 }
 
-.dayWeather-summary > * {
+.dayWeather-summary > p {
+  margin: .5rem;
+}
+
+.hidden {
+  display: none;
 }
