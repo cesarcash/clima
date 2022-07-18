@@ -21,7 +21,7 @@ function nextDay (day) {
 }
 
 $tabList.forEach(($tab, index) => {
-    
+
     $tab.addEventListener('click', handleSelectTabClick);
     
     if(index === 0){

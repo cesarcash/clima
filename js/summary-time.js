@@ -4,7 +4,7 @@ import {createDOM} from './utils/dom.js'
 export function sumaryTimeTemplate({tempMax,tempMin,wind,humidity},id) {
 
     return `
-        <div class="dayWeather-summary" id="${id}">
+        <div class="dayWeather-summary" data-id="summary-${id.index}${id.indexDay}">
             <p>Máx: <strong>${tempMax}</strong></p>
             <p>Mín: <strong>${tempMin}</strong></p>
             <p>Viento: <strong>${wind}</strong></p>
@@ -30,11 +30,10 @@ export function createSummaryTime(weather,id) {
 
     const $content = createDOM(sumaryTimeTemplate(config,id))
 
-    if(id > 0){
+    if(id.indexDay > 0){
         $content.style.display = 'none'
     }
 
     return $content
-    
 
 }

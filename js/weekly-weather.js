@@ -36,10 +36,12 @@ function configWeeklyWeather(weeklist){
         const $panel = createTabPanel(index)
 
         $container.append($panel)
-        day.forEach((weatherDay,indexDay) => {            
+        day.forEach((weatherDay,indexDay) => {
 
-            $panel.querySelector('.dayWeather-list').append(createPeriodTime(weatherDay,indexDay))
-            $panel.append(createSummaryTime(weatherDay,indexDay))
+            const id = {index,indexDay}
+
+            $panel.querySelector('.dayWeather-list').append(createPeriodTime(weatherDay,id))
+            $panel.append(createSummaryTime(weatherDay,id))
             
         })
 
