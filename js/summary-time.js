@@ -31,7 +31,8 @@ export function createSummaryTime(weather,id) {
     const $content = createDOM(sumaryTimeTemplate(config,id))
 
     if(id.indexDay > 0){
-        $content.style.display = 'none'
+        // $content.style.display = 'none'
+        $content.classList.add('is-hidden')
     }
 
     return $content

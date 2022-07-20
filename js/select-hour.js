@@ -1,15 +1,10 @@
 
 export function selectItemHour(){
 
-    // const $tabPanel = document.querySelectorAll('.tabPanel')
-
-    // $tabPanel.forEach(($item,index) => {
-        const $tabItem = document.querySelectorAll('.dayWeather-item')
-        $tabItem.forEach(($itemHour,indexHour) => {
-            $itemHour.addEventListener('click', handleSelectItemHour)
-        })
-    // })
-
+    const $tabItem = document.querySelectorAll('.dayWeather-item')
+    $tabItem.forEach(($itemHour,indexHour) => {
+        $itemHour.addEventListener('click', handleSelectItemHour)
+    })
 
 }
 
@@ -22,8 +17,13 @@ function handleSelectItemHour(){
     $itemActive.classList.remove('is-selected')
     $itemSelected.classList.add('is-selected')
 
+    const $tabSection = $containerItem.parentElement.parentElement
+    const $summaryActive = $tabSection.querySelector('.dayWeather-summary:not(.is-hidden)')
+
+    $summaryActive.classList.add('is-hidden')
+
     const summaryId = $itemSelected.id
     const $summarySelected = document.querySelector(`[data-id="${summaryId}"]`)
-    $summarySelected.style.display = 'grid'
+    $summarySelected.classList.remove('is-hidden')
 
 }
